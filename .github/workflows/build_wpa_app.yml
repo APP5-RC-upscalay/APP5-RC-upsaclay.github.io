@@ -25,7 +25,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     
     - name: build angular app
-    - run: |
+      run: |
         npm install --prefix ./source
         npm run build --prefix ./source -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="./build"
     
