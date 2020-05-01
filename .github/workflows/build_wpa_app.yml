@@ -19,10 +19,12 @@ jobs:
       with:
         path: source
 
-    - name: build angular app
+    - name: setup node Version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    
+    - name: build angular app
     - run: |
         npm install --prefix ./source
         npm run build --prefix ./source -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="./build"
@@ -36,7 +38,7 @@ jobs:
     - name: update gh-pages with builded angular app
       run: |
         rm -r ./page/*
-        cp -r ./build/* ./page/
+        cp -r ./source/build/* ./page/
     
     - name: Commit
       run: |
