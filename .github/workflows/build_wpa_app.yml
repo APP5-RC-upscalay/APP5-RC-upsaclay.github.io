@@ -43,7 +43,7 @@ jobs:
     - name: build angular app
       run: |
         npm install --prefix $source_path
-        npm run build --prefix $source_path -- --prod -aot --output-hashing="all" --base-href="/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)/" --output-path="$build_path"
+        npm run build --prefix $source_path -- --prod --aot --output-hashing="all" --base-href="/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)/" --output-path="$build_path"
     
     - name: Checkout ${{ env.target_branch }} branch
       uses: actions/checkout@v2
