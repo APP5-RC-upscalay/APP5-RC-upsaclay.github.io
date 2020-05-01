@@ -1,0 +1,51 @@
+name: build pwa app
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        path: source
+
+    - name: build angular app
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: |
+        npm install --prefix ./source
+        npm run build --prefix ./source -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="./build"
+    
+    - name: Checkout gh-pages branch
+      uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: page
+    
+    - name: update gh-pages with builded angular app
+    - run: |
+        rm -r ./page/*
+        cp -r ./build/* ./page/
+    
+    - name: Commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ./page
+        git commit -m "Add changes"
+        
+    - name: Push changes to gh-pages branche
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
