@@ -28,7 +28,7 @@ jobs:
     - name: Cache node modules
       uses: actions/cache@v1
       env:
-        cache-name: cache-node-modules
+        cache-name: cache_node-modules
       with:
         path: 
           ./source/node_modules          
