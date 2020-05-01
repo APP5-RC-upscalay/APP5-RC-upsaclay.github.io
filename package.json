@@ -1,5 +1,5 @@
 {
-  "name": "algo-web-project",
+  "name":  "algo-web-project",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
