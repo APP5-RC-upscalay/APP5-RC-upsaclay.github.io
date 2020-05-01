@@ -6,9 +6,9 @@ on:
     
 env:
     target_branch: gh-pages
-    source_path: source
-    page_path: page
-    build_path: build
+    source_path: ~/source
+    page_path: ~/page
+    build_path: ~/build
 
 jobs:
   update_gh-page:
@@ -25,14 +25,14 @@ jobs:
       with:
         path: ${{ env.source_path }}
 
-    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ env.hash_file }}-${{ hashFiles( env.hash_file ) }}
+    - name: Cache node modules
       uses: actions/cache@v1
       env:
         cache-name: cache_node-modules
         hash_file: ${{ env.source_path }}/package-lock.json
       with:
         path: ${{ env.source_path }}/node_modules          
-        key: npm-build-${{ env.cache-name }}-${{ hashFiles('source/package-lock.json') }}
+        key: npm-build-${{ env.cache-name }}-${{ hashFiles(env.hash_file) }}
 
     - name: setup node Version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -53,7 +53,7 @@ jobs:
     - name: update ${{ env.target_branch }} with builded angular app
       run: |
         rm -r $page_path/*
-        cp -r $source_path/$build_path/* $page_path
+        cp -r $build_path/* $page_path
     
     - name: Commit
       run: |
