@@ -35,7 +35,7 @@ jobs:
         npm install --prefix $source_path
         npm run build --prefix $source_path -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="$build_path"
     
-    - name: Checkout ${{ env.target_branch branch }}
+    - name: Checkout ${{ env.target_branch }} branch
       uses: actions/checkout@v2
       with:
         ref: ${{ env.target_branch }}
