@@ -25,18 +25,13 @@ jobs:
       with:
         path: ${{ env.source_path }}
 
-    - name: Cache node modules
+    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ hashFiles('source/package-lock.json') }}
       uses: actions/cache@v1
       env:
         cache-name: cache_node-modules
       with:
-        path: 
-          ./source/node_modules          
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('source/package-lock.json') }}
-        restore-keys: |
-          npm-build-${{ env.cache-name }}-
-          npm-build-
-          npm-
+        path: ${{ env.source_path }}/node_modules          
+        key: npm-build-${{ env.cache-name }}-${{ hashFiles('source/package-lock.json') }}
 
     - name: setup node Version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
