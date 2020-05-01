@@ -23,7 +23,7 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v2
       with:
-        path: $source_path
+        path: ${{ env.source_path }}
 
     - name: setup node Version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
