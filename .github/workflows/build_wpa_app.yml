@@ -34,12 +34,12 @@ jobs:
         path: page
     
     - name: update gh-pages with builded angular app
-    - run: |
+      run: |
         rm -r ./page/*
         cp -r ./build/* ./page/
     
     - name: Commit
-    - run: |
+      run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add ./page
