@@ -1,4 +1,4 @@
-name: build_site
+name: build wpa app
 
 on:
   push:
@@ -16,21 +16,21 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: build project
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - run: |
         npm install
-        mkdir ./docs
         npm run build -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="./docs"
-        ls ./docs -al
-    - name: Commit files
+        
+    - name: Commit docs
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add ./docs
         git commit -m "Add changes"
+        
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
