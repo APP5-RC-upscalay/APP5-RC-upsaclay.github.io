@@ -6,13 +6,14 @@ on:
     
 env:
     target_branch: gh-pages
-    source_path: source
-    page_path: page
-    build_path: build
 
 jobs:
   update_gh-page:
-    
+    env:
+      source_path: source
+      page_path: page
+      build_path: build
+
     runs-on: ubuntu-latest
 
     strategy:
