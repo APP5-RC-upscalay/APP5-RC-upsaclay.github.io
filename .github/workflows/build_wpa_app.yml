@@ -25,7 +25,7 @@ jobs:
       with:
         path: ${{ env.source_path }}
 
-    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ hash_file }}-${{ hashFiles( env.hash_file ) }}
+    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ env.hash_file }}-${{ hashFiles( env.hash_file ) }}
       uses: actions/cache@v1
       env:
         cache-name: cache_node-modules
