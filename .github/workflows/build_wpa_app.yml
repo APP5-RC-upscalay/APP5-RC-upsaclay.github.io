@@ -5,7 +5,13 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  update_gh-page:
+    
+    env:
+      source_path: source
+      page_path: page
+      build_path: build
+      target_branch: gh-pages
 
     runs-on: ubuntu-latest
 
@@ -17,7 +23,7 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v2
       with:
-        path: source
+        path: ${{source_path}}
 
     - name: setup node Version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -26,31 +32,31 @@ jobs:
     
     - name: build angular app
       run: |
-        npm install --prefix ./source
-        npm run build --prefix ./source -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="./build"
+        npm install --prefix ${{source_path}}
+        npm run build --prefix ${{source_path}} -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="${{build_path}}"
     
-    - name: Checkout gh-pages branch
+    - name: Checkout ${{target_branch}} branch
       uses: actions/checkout@v2
       with:
-        ref: gh-pages
-        path: page
+        ref: ${{target_branch}}
+        path: ${{page_path}}
     
-    - name: update gh-pages with builded angular app
+    - name: update ${{target_branch}} with builded angular app
       run: |
-        rm -r ./page/*
-        cp -r ./source/build/* ./page/
+        rm -r ${{page_path}}/*
+        cp -r ${{source_path}}/${{build_path}}/* ${{page_path}}
     
     - name: Commit
       run: |
-        cd ./page
+        cd ${{page_path}}
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
         git commit -m "new version of the pwa"
         
-    - name: Push changes to gh-pages branche
+    - name: Push changes to ${{target_branch}} branche
       uses: ad-m/github-push-action@master
       with:
-        branch: gh-pages
-        directory: ./page
+        branch: ${{target_branch}}
+        directory: ${{page_path}}
         github_token: ${{ secrets.GITHUB_TOKEN }}
