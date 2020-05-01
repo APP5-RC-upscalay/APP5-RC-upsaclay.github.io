@@ -25,7 +25,7 @@ jobs:
       with:
         path: ${{ env.source_path }}
 
-    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ hashFiles(${{env.source_path}}'/package-lock.json') }}
+    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ hashFiles( env.source_path'/package-lock.json') }}
       uses: actions/cache@v1
       env:
         cache-name: cache_node-modules
