@@ -42,6 +42,7 @@ jobs:
     
     - name: Commit
       run: |
+        ls -al
         cd ./page
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
