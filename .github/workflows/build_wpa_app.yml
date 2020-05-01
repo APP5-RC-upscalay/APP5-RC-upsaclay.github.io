@@ -46,11 +46,11 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
-        git commit -m "Add changes"
-        ls -al
+        git commit -m "new version of the pwa"
         
-    #- name: Push changes to gh-pages branche
-    #  uses: ad-m/github-push-action@master
-    #  with:
-    #    branch : gh-pages
-    #    github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push changes to gh-pages branche
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        directory: ./page
+        github_token: ${{ secrets.GITHUB_TOKEN }}
