@@ -3,16 +3,16 @@ name: build PWA app
 on:
   push:
     branches: [ master ]
+    
+env:
+    source_path: source
+    page_path: page
+    build_path: build
+    target_branch: gh-pages
 
 jobs:
   update_gh-page:
     
-    env:
-      source_path: source
-      page_path: page
-      build_path: build
-      target_branch: gh-pages
-
     runs-on: ubuntu-latest
 
     strategy:
