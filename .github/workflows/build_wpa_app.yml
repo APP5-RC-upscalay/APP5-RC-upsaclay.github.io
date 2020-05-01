@@ -45,6 +45,7 @@ jobs:
     
     - name: build angular app
       run: |
+        ls $source_path/node_modules/
         npm install --prefix $source_path
         npm run build --prefix $source_path -- --prod --base-href="/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)/" --output-path="$build_path"
     
