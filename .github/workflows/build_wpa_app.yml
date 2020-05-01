@@ -25,7 +25,7 @@ jobs:
       with:
         path: ${{ env.source_path }}
 
-    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ hashFiles('source/package-lock.json') }}
+    - name: Cache node modules --> npm-build-${{ env.cache-name }}-${{ hashFiles('$source_path/package-lock.json') }}
       uses: actions/cache@v1
       env:
         cache-name: cache_node-modules
@@ -40,7 +40,6 @@ jobs:
     
     - name: build angular app
       run: |
-        ls $source_path/node_modules/
         npm install --prefix $source_path
         npm run build --prefix $source_path -- --prod --base-href="/$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)/" --output-path="$build_path"
     
