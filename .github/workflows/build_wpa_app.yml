@@ -35,13 +35,13 @@ jobs:
         npm install --prefix $source_path
         npm run build --prefix $source_path -- --prod --base-href="/APP5-RC-upsaclay.github.io/" --output-path="$build_path"
     
-    - name: Checkout $target_branch branch
+    - name: Checkout ${{ env.target_branch branch }}
       uses: actions/checkout@v2
       with:
-        ref: $target_branch
-        path: $page_path
+        ref: ${{ env.target_branch }}
+        path: ${{ env.page_path }}
     
-    - name: update $target_branch with builded angular app
+    - name: update ${{ env.target_branch }} with builded angular app
       run: |
         rm -r $page_path/*
         cp -r $source_path/$build_path/* $page_path
@@ -54,9 +54,9 @@ jobs:
         git add .
         git commit -m "new version of the pwa"
         
-    - name: Push changes to $target_branch branche
+    - name: Push changes to ${{ env.target_branch }} branche
       uses: ad-m/github-push-action@master
       with:
-        branch: $target_branch
-        directory: $page_path
+        branch: ${{ env.target_branch }}
+        directory: ${{ env.page_path }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
