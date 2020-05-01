@@ -34,9 +34,9 @@ jobs:
           ./source/node_modules          
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('source/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          npm-build-${{ env.cache-name }}-
+          npm-build-
+          npm-
 
     - name: setup node Version ${{ matrix.node-version }}
       uses: actions/setup-node@v1
